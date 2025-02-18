@@ -7,7 +7,7 @@
  <style>
  @font-face {
  font-family: 'SevenSegment';
- src: url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
+ src: url('https://fonts.cdnfonts.com/s/10693/DS-DIGI.woff') format('woff');
  }
  body {
  font-family: 'Inter', sans-serif;
@@ -111,7 +111,7 @@
    <div class="tab" onclick="showTab('settings')">Настройки</div>
  </div>
 
- <div id="home" class="content active" onload="getWeather('Щучинск')">
+ <div id="home" class="content active">
    <div class="container">
      <h1>Погода в вашем доме</h1>
      <div id="weather" class="weather-card"></div>
@@ -172,6 +172,11 @@
      document.getElementById('weather').innerHTML = '<p>Не удалось получить данные.</p>';
    }
  }
+
+ // Загружаем погоду при старте страницы
+ window.onload = function() {
+   getWeather('Щучинск');
+ };
  </script>
 </body>
 </html>
