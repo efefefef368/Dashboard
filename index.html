@@ -173,9 +173,9 @@
    }
  }
 
- // Загружаем погоду при старте страницы
+ // Загружаем погоду при старте страницы и имитируем нажатие кнопки
  window.onload = function() {
-   getWeather('Щучинск');
+   document.querySelector('button').click();
  };
  </script>
 </body>
