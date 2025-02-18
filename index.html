@@ -2,14 +2,12 @@
 <html lang="ru">
 <head>
  <meta charset="UTF-8">
- <meta name="viewport"
-content="width=device-width, initialscale=1.0">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0">
  <title>Умный дом</title>
  <style>
  @font-face {
  font-family: 'SevenSegment';
- src:
-url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
+ src: url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  }
  body {
  font-family: 'Inter', sans-serif;
@@ -17,6 +15,7 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  padding: 20px;
  background: #121212;
  color: #ffffff;
+ margin: 0;
  }
  .tabs {
  display: flex;
@@ -24,11 +23,13 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  background: #1e1e1e;
  padding: 10px;
  border-radius: 10px;
+ margin-bottom: 20px;
  }
  .tab {
  padding: 10px 20px;
  color: white;
  cursor: pointer;
+ transition: background 0.3s ease;
  }
  .tab:hover {
  background: #00a3cc;
@@ -44,7 +45,7 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  display: block;
  }
  .container {
- max-width: 400px;
+ max-width: 500px;
  margin: auto;
  padding: 20px;
  background: #1e1e1e;
@@ -52,7 +53,7 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
  }
  h1 {
- font-size: 1.5em;
+ font-size: 1.8em;
  color: #00d4ff;
  }
  input, button {
@@ -71,6 +72,7 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  background: #00d4ff;
  color: #000;
  cursor: pointer;
+ transition: background 0.3s ease;
  }
  button:hover {
  background: #00a3cc;
@@ -80,6 +82,7 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  padding: 15px;
  background: #292929;
  border-radius: 8px;
+ box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
  }
  .seven-segment {
  font-family: 'SevenSegment', sans-serif;
@@ -90,72 +93,84 @@ url('https://fonts.cdnfonts.com/s/10693/DSDIGI.woff') format('woff');
  border-radius: 5px;
  display: inline-block;
  }
+ .footer {
+ margin-top: 30px;
+ padding: 10px;
+ background-color: #1e1e1e;
+ color: #ffffff;
+ font-size: 0.9em;
+ }
  </style>
 </head>
 <body>
  <div class="tabs">
- <div class="tab" onclick="showTab('home')">Главная</div>
- <div class="tab" onclick="showTab('lighting')">Освещение</div>
- <div class="tab" onclick="showTab('climate')">Климат</div>
- <div class="tab" onclick="showTab('security')">Безопасность</div>
- <div class="tab" onclick="showTab('settings')">Настройки</div>
+   <div class="tab" onclick="showTab('home')">Главная</div>
+   <div class="tab" onclick="showTab('lighting')">Освещение</div>
+   <div class="tab" onclick="showTab('climate')">Климат</div>
+   <div class="tab" onclick="showTab('security')">Безопасность</div>
+   <div class="tab" onclick="showTab('settings')">Настройки</div>
  </div>
 
  <div id="home" class="content active" onload="getWeather('Щучинск')">
- <div class="container">
-<body onload="getWeather('Щучинск')">
-<div id="weather" class="weather-card"></div>
- <input type="text" id="city" placeholder="Введите город" value="Щучинск">
- <button onclick="getWeather()">Изменить город</button>
+   <div class="container">
+     <h1>Погода в вашем доме</h1>
+     <div id="weather" class="weather-card"></div>
+     <input type="text" id="city" placeholder="Введите город" value="Щучинск">
+     <button onclick="getWeather()">Изменить город</button>
+   </div>
+ </div>
 
- </div>
- </div>
  <div id="lighting" class="content">
- <h2>Освещение</h2>
- <p>Управление светом в доме.</p>
+   <h2>Освещение</h2>
+   <p>Управление светом в доме.</p>
  </div>
  <div id="climate" class="content">
- <h2>Климат</h2>
- <p>Температура, влажность.</p>
+   <h2>Климат</h2>
+   <p>Температура, влажность.</p>
  </div>
  <div id="security" class="content">
- <h2>Безопасность</h2>
- <p>Контроль камер, замков.</p>
+   <h2>Безопасность</h2>
+   <p>Контроль камер, замков.</p>
  </div>
  <div id="settings" class="content">
- <h2>Настройки</h2>
- <p>Wi-Fi, параметры системы.</p>
+   <h2>Настройки</h2>
+   <p>Wi-Fi, параметры системы.</p>
+ </div>
+
+ <div class="footer">
+   <p>Аксёненков Михаил</p>
  </div>
 
  <script>
  function showTab(tabId) {
- document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
- document.getElementById(tabId).classList.add('active');
+   document.querySelectorAll('.content').forEach(el => el.classList.remove('active'));
+   document.getElementById(tabId).classList.add('active');
  }
- async function getWeather(defaultCity) {
- const apiKey = '47bb64e6694a23cf4766275c69565974';
- const cityInput = document.getElementById('city');
- const city = defaultCity || cityInput.value;
- const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
 
- try {
- const response = await fetch(url);
- const data = await response.json();
- if (data.cod === 200) {
- document.getElementById('weather').innerHTML = `
- <p>В городе <strong>${data.name}, ${data.sys.country}</strong></p>
- <p>${data.weather[0].description}</p>
- <p> Температура: <span class='seven-segment'>${data.main.temp}°C</span></p>
- <p> Ощущается как: <span class='seven-segment'>${data.main.feels_like}°C</span></p>
- <p> Влажность: ${data.main.humidity}%</p>
- <p> Ветер: ${data.wind.speed} м/с</p>
- `;
- } else {
- document.getElementById('weather').innerHTML = `<p>Ошибка: ${data.message}</p>`;
- }
- } catch (error) {
- document.getElementById('weather').innerHTML = '<p>Не удалось получить данные.</p>';
- }
+ async function getWeather(defaultCity) {
+   const apiKey = '47bb64e6694a23cf4766275c69565974';
+   const cityInput = document.getElementById('city');
+   const city = defaultCity || cityInput.value;
+   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=ru`;
+
+   try {
+     const response = await fetch(url);
+     const data = await response.json();
+     if (data.cod === 200) {
+       document.getElementById('weather').innerHTML = `
+         <p>В городе <strong>${data.name}, ${data.sys.country}</strong></p>
+         <p>${data.weather[0].description}</p>
+         <p> Температура: <span class='seven-segment'>${data.main.temp}°C</span></p>
+         <p> Ощущается как: <span class='seven-segment'>${data.main.feels_like}°C</span></p>
+         <p> Влажность: ${data.main.humidity}%</p>
+         <p> Ветер: ${data.wind.speed} м/с</p>
+       `;
+     } else {
+       document.getElementById('weather').innerHTML = `<p>Ошибка: ${data.message}</p>`;
+     }
+   } catch (error) {
+     document.getElementById('weather').innerHTML = '<p>Не удалось получить данные.</p>';
+   }
  }
  </script>
 </body>
